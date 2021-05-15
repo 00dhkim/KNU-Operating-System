@@ -2229,6 +2229,8 @@ EXPORT_SYMBOL(vfs_dedupe_file_range);
 
 int sys_swrite(int fd, char *buf, int len)
 {
+	printk("sys_swrite invoked fd=%d len=%d\n",fd, len);
+
 	struct fd f = fdget_pos(fd);
 	ssize_t ret = -EBADF;
 
@@ -2253,6 +2255,8 @@ SYSCALL_DEFINE3(sread, int, fd, char *, buf, int, len)
 
 int sys_sread(int fd, char *buf, int len)
 {
+	printk("sys_sread invoked fd=%d len=%d\n",fd, len);
+
 	struct fd f = fdget_pos(fd);
 	ssize_t ret = -EBADF;
 

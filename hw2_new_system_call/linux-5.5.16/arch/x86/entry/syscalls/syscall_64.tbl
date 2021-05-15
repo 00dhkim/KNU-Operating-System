@@ -359,7 +359,7 @@
 435	common	clone3			__x64_sys_clone3/ptregs
 436	common	hello			__x64_sys_hello
 437	common	swrite			__x64_sys_swrite
-437	common	sread			__x64_sys_sread
+438	common	sread			__x64_sys_sread
 
 #
 # x32-specific system call numbers start at 512 to avoid cache impact
