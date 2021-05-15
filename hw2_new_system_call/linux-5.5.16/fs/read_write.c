@@ -2238,7 +2238,7 @@ int sys_swrite(int fd, char *buf, int len)
 			pos = *ppos;
 			ppos = &pos;
 		}
-		ret = vfs_read(f.file, buf, count, ppos);
+		ret = vfs_read(f.file, buf, len, ppos);
 		if (ret >= 0 && ppos)
 			f.file->f_pos = pos;
 		fdput_pos(f);
@@ -2262,7 +2262,7 @@ int sys_sread(int fd, char *buf, int len)
 			pos = *ppos;
 			ppos = &pos;
 		}
-		ret = vfs_write(f.file, buf, count, ppos);
+		ret = vfs_write(f.file, buf, len, ppos);
 		if (ret >= 0 && ppos)
 			f.file->f_pos = pos;
 		fdput_pos(f);
