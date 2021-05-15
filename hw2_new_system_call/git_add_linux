@@ -5,4 +5,4 @@ git add -f include/linux/syscalls.h
 git add -f arch/x86/entry/syscalls/syscall_64.tbl 
 git add -f kernel/hello.c 
 git add -f kernel/Makefile 
-git add -f fs/
+git add -f fs/read_write.c
