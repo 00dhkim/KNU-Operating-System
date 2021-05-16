@@ -17,6 +17,7 @@ int main() {
     for(int i=0;i<10;i++) {
         printf("[%d]%d %c\n",i,buf[i],buf[i]);
     }
+    printf("\n--------\n");
     // read(fdin, buf, 11);
     syscall(__NR_sread, fdin, buf, 11);
 
