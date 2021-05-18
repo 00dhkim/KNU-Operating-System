@@ -2230,6 +2230,18 @@ EXPORT_SYMBOL(vfs_dedupe_file_range);
 int sys_swrite(int fd, char *buf, int len)
 {
 	printk("sys_swrite invoked fd=%d len=%d\n",fd, len);
+	int i;
+	for(i=0;i<len;i++) {
+        printk("[%d]%d %c\n",i,buf[i],buf[i]);
+    }
+
+	for(i=0; i<len; i++) {
+		buf[i] = ~buf[i];
+	}
+
+	for(i=0;i<len;i++) {
+        printk("[%d]%d %c\n",i,buf[i],buf[i]);
+    }
 
 	struct fd f = fdget_pos(fd);
 	ssize_t ret = -EBADF;
@@ -2248,7 +2260,7 @@ int sys_swrite(int fd, char *buf, int len)
 	return ret;
 }
 
-SYSCALL_DEFINE3(sread, int, fd, char *, buf, int, len)
+SYSCALL_DEFINE3(swrite, int, fd, char *, buf, int, len)
 {
 	return sys_swrite(fd, buf, len);
 }
@@ -2272,10 +2284,27 @@ int sys_sread(int fd, char *buf, int len)
 		fdput_pos(f);
 	}
 
+	int i;
+	for(i=0;i<len;i++) {
+        printk("[%d]%d %c\n",i,buf[i],buf[i]);
+    }
+
+	printk("sys_sread 7\n");
+
+	for(i=0; i<len; i++) {
+		buf[i] = ~buf[i];
+	}
+	printk("sys_sread 8\n");
+
+	for(i=0;i<len;i++) {
+        printk("[%d]%d %c\n",i,buf[i],buf[i]);
+    }
+	printk("sys_sread 9\n");
+
 	return ret;
 }
 
-SYSCALL_DEFINE3(swrite, int, fd, char *, buf, int, len)
+SYSCALL_DEFINE3(sread, int, fd, char *, buf, int, len)
 {
 	return sys_sread(fd, buf, len);
 }

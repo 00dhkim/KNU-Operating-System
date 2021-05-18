@@ -2,9 +2,21 @@
 
 printk 보는법: dmesg 또는 tail -f /proc/kmsg
 
+## user mode, kernel mode 관련 자료
 
-## read
+https://computersource.tistory.com/68
 
+http://egloos.zum.com/rousalome/v/10000207
+
+https://stackoverflow.com/questions/34159622/copy-data-from-kernel-space-to-user-space
+
+https://www.kernel.bz/boardPost/118679/13
+
+
+
+## call stack frame
+
+### read
 
 fs/read_write.c:576 ksys_read() -> vfs_read()
 
@@ -22,7 +34,7 @@ https://m.blog.naver.com/PostView.nhn?blogId=ryutuna&logNo=100184443085
 
 
 
-## write
+### write
 
 fs/read_write.c:600 ksys_write() -> vfs_write()
 
