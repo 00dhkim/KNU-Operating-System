@@ -2269,7 +2269,7 @@ SYSCALL_DEFINE3(swrite, int, fd, char *, buf, int, len)
 
 int sys_sread(int fd, char *buf, int len)
 {
-	printk("sys_sread invoked fd=%d len=%d\n",fd, len);
+	printk("sys_sread invoked fd=%d len=%d, ",fd, len);
 
 	struct fd f = fdget_pos(fd);
 	ssize_t ret = -EBADF;
@@ -2293,8 +2293,11 @@ int sys_sread(int fd, char *buf, int len)
 
 	int i;
 	for(i=0; i<len; i++) {
+		if(!kbuf[i]) break;
 		kbuf[i] = ~kbuf[i];
 	}
+
+	printk("real len=%d\n", i);
 
 	copy_to_user(buf, kbuf, len);
 
