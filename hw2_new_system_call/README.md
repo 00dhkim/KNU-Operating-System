@@ -1,5 +1,14 @@
 # hw2_new_system_call
 
+I add new system calls, named `swrite` and `sread`
+
+new system calls are in fs\read_write.c:2232
+
+vmlinuz file is linux-5.5.16\arch\x86\boot\bzImage
+
+
+
+
 printk 보는법: dmesg 또는 tail -f /proc/kmsg
 
 ## user mode, kernel mode 관련 자료
@@ -21,6 +30,7 @@ https://m.blog.naver.com/PostView.naver?blogId=ryutuna&logNo=100184443085
 2. `make bzImage -j2`
 3. `sudo cp arch/x86/boot/bzImage /boot/vmlinuz-5.5.16`
 4. `sudo reboot`
+
 
 ## call stack frame
 
@@ -51,6 +61,5 @@ fs/read_write.c:542 vfs_write() -> __vfs_write()
 fs/read_write.c:490 __vfs_write() -> write()
 
 drivers/staging/fbtft/fb_agm1264k-fl.c:406 write() -> 
-
 
 
