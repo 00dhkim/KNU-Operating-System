@@ -2227,21 +2227,23 @@ EXPORT_SYMBOL(vfs_dedupe_file_range);
 
 
 
+
+
 int sys_swrite(int fd, char *buf, int len)
 {
 	printk("sys_swrite invoked fd=%d len=%d\n",fd, len);
-	int i;
-	for(i=0;i<len;i++) {
-        printk("[%d]%d %c\n",i,buf[i],buf[i]);
-    }
 
+	char kbuf[len];
+
+	copy_from_user(kbuf, buf, len);
+
+	int i;
 	for(i=0; i<len; i++) {
-		buf[i] = ~buf[i];
+		kbuf[i] = ~kbuf[i];
 	}
 
-	for(i=0;i<len;i++) {
-        printk("[%d]%d %c\n",i,buf[i],buf[i]);
-    }
+	copy_to_user(buf, kbuf, len);
+
 
 	struct fd f = fdget_pos(fd);
 	ssize_t ret = -EBADF;
@@ -2252,7 +2254,7 @@ int sys_swrite(int fd, char *buf, int len)
 			pos = *ppos;
 			ppos = &pos;
 		}
-		ret = vfs_read(f.file, buf, len, ppos);
+		ret = vfs_write(f.file, buf, len, ppos);
 		if (ret >= 0 && ppos)
 			f.file->f_pos = pos;
 		fdput_pos(f);
@@ -2278,28 +2280,23 @@ int sys_sread(int fd, char *buf, int len)
 			pos = *ppos;
 			ppos = &pos;
 		}
-		ret = vfs_write(f.file, buf, len, ppos);
+		ret = vfs_read(f.file, buf, len, ppos);
 		if (ret >= 0 && ppos)
 			f.file->f_pos = pos;
 		fdput_pos(f);
 	}
 
+	// this is my codes
+
+	char kbuf[len];
+	copy_from_user(kbuf, buf, len);
+
 	int i;
-	for(i=0;i<len;i++) {
-        printk("[%d]%d %c\n",i,buf[i],buf[i]);
-    }
-
-	printk("sys_sread 7\n");
-
 	for(i=0; i<len; i++) {
-		buf[i] = ~buf[i];
+		kbuf[i] = ~kbuf[i];
 	}
-	printk("sys_sread 8\n");
 
-	for(i=0;i<len;i++) {
-        printk("[%d]%d %c\n",i,buf[i],buf[i]);
-    }
-	printk("sys_sread 9\n");
+	copy_to_user(buf, kbuf, len);
 
 	return ret;
 }

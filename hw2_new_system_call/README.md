@@ -12,7 +12,15 @@ https://stackoverflow.com/questions/34159622/copy-data-from-kernel-space-to-user
 
 https://www.kernel.bz/boardPost/118679/13
 
+https://m.blog.naver.com/PostView.naver?blogId=ryutuna&logNo=100184443085
 
+
+## how to build
+
+1. `cd linux-5.5.16`
+2. `make bzImage -j2`
+3. `sudo cp arch/x86/boot/bzImage /boot/vmlinuz-5.5.16`
+4. `sudo reboot`
 
 ## call stack frame
 
