@@ -63,3 +63,12 @@ fs/read_write.c:490 __vfs_write() -> write()
 drivers/staging/fbtft/fb_agm1264k-fl.c:406 write() -> 
 
 
+## problems i've had
+
+kernel 영역에서 user 영역 메모리인 buf를 쓰려고 했음.
+
+그렇게 할 경우 아래와 같은 에러 던짐.
+
+![err capture](err1.png)
+
+`copy_to_user()`와 `copy_from_user()` 함수를 통해 `kbuf`라는 커널 버퍼로 복사 후 `kbuf`를 건드는 것으로 문제 해결
