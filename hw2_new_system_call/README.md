@@ -71,4 +71,5 @@ kernel 영역에서 user 영역 메모리인 buf를 쓰려고 했음.
 
 ![err capture](err1.png)
 
-`copy_to_user()`와 `copy_from_user()` 함수를 통해 `kbuf`라는 커널 버퍼로 복사 후 `kbuf`를 건드는 것으로 문제 해결
+[`copy_to_user()`](linux-5.5.16/fs/read_write.c#L2245)와 [`copy_from_user()`](linux-5.5.16/fs/read_write.c#L2238) 함수를 통해 [`kbuf`](linux-5.5.16/fs/read_write.c#L2236)라는 커널 버퍼로 복사 후 `kbuf`를 건드는 것으로 문제 해결
+
